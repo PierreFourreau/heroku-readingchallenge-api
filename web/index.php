@@ -39,12 +39,12 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response;
 });
 
-$app->get('/categories', 'getCategories');
+//$app->get('/categories', 'getCategories');
 
 $app->run();
 
 
-function getCategories() {
+/*function getCategories() {
 	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
 echo $sql;
   try {
@@ -62,4 +62,4 @@ echo $sql;
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
-}
+}*/
