@@ -5,9 +5,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require('../vendor/autoload.php');
 //require 'db.php';
 
-
-
-
 function getConnection() {
   $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
   $dbhost=$url["host"];
@@ -44,7 +41,7 @@ function getCategories() {
 }
 
 //category
-/*$app->get('/categories', function ($request, $response, $args) {
+$app->get('/categories', function ($request, $response, $args) {
   $sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
   try {
     $db = getConnection();
@@ -61,9 +58,9 @@ function getCategories() {
   } catch(PDOException $e) {
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
-/*$app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
+$app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
   try {
     $db = getConnection();
@@ -121,9 +118,9 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('addCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
-/*$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
+$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.id=:id";
   try {
     $db = getConnection();
@@ -139,7 +136,7 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('getSuggestionById-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
 $app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
@@ -160,7 +157,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     echo json_encode($id);
     //send email
 
-    $headers = "From: ReadingChallenge\r\n";
+    /*$headers = "From: ReadingChallenge\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     $email = 'readingchallenge.contact@gmail.com';
     $subject = 'Readingchallenge - ajout proposition';
@@ -170,7 +167,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     $message .= 'Libelle en : ' . $params['libelle_en'];
     $message .= '<br/><br/><a href="http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions">Admin</a>';
     $message .= '</body></html>';
-    mail($email, $subject, $message, $headers);
+    mail($email, $subject, $message, $headers);*/
     exit;
   } catch(Exception $e) {
     $app = \Slim\Slim::getInstance();
