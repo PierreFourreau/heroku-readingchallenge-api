@@ -120,7 +120,7 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
   }
 }*/
 
-$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
+/*$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.categorie_id=:id";
   	try {
   		$db = getConnection();
@@ -136,7 +136,7 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   		$app->log->error('getSuggestionsByCategoryId-'.$e->getMessage());
   		echo '{"error":{"text":'. $e->getMessage() .'}}';
   	}
-}
+}*/
 
 /*$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
