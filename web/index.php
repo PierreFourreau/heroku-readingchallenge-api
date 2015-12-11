@@ -21,13 +21,14 @@ function getConnection() {
 	return $dbh;
 }
 
-$app = new \Slim\App;
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello boy, $name");
-
-    return $response;
-});
+$app = new \Slim\Slim(array(
+	//'log.writer' => $logWriter,
+	'log.writer' => new \Slim\Logger\DateTimeFileWriter(
+	array(
+		'path' => 'Logs/',
+	)
+)
+));
 
 //category
 $app->get('/categories', 'getCategories');
