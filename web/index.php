@@ -41,7 +41,7 @@ function getCategories() {
 }
 
 //category
-$app->get('/categories', function ($request, $response, $args) {
+/*$app->get('/categories', function ($request, $response, $args) {
   $sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
   try {
     $db = getConnection();
@@ -58,7 +58,7 @@ $app->get('/categories', function ($request, $response, $args) {
   } catch(PDOException $e) {
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
 $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
