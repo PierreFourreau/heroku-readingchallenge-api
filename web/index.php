@@ -44,7 +44,7 @@ function getCategories() {
 }
 
 //category
-$app->get('/categories', function ($request, $response, $args) {
+/*$app->get('/categories', function ($request, $response, $args) {
   $sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
   try {
     $db = getConnection();
@@ -61,7 +61,7 @@ $app->get('/categories', function ($request, $response, $args) {
   } catch(PDOException $e) {
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
 $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
@@ -81,7 +81,7 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   }
 });
 
-/*$app->get('/categories/{id}', function ($request, $response, $args) {
+$app->get('/categories/{id}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
   try {
     $db = getConnection();
@@ -97,9 +97,9 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
     $app->log->error('getCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-});*/
+});
 
-/*$app->post('/categories', function ($request, $response, $args) {
+$app->post('/categories', function ($request, $response, $args) {
   //$request = Slim::getInstance()->request();
   $categorie = json_decode($request->getBody());
   $sql = "INSERT INTO categories(libelle_en, libelle_fr, description_en, description_fr, image) VALUES (:libelle_en, :libelle_fr, :description_en, :description_fr, :image)";
@@ -121,9 +121,9 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
     $app->log->error('addCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
-/*$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
+$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.id=:id";
   try {
     $db = getConnection();
@@ -139,9 +139,9 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
     $app->log->error('getSuggestionById-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
-/*$app->post('/propositions', function ($request, $response, $args) {
+$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
   $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
@@ -177,6 +177,6 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
     $app->log->error('addProposition-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
 $app->run();
