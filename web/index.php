@@ -21,10 +21,7 @@ function getConnection() {
 	return $dbh;
 }
 
-$app = new \Slim\Slim(array(
-	//'log.writer' => $logWriter,
-	'log.writer' => new \Slim\Logger\DateTimeFileWriter()
-));
+$app = new \Slim\App;
 
 //category
 $app->get('/categories', 'getCategories');
