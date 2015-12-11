@@ -78,7 +78,7 @@ function getCategories() {
   }
 });*/
 
-$app->get('/categories/{id}', function ($request, $response, $args) {
+/*$app->get('/categories/{id}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
   try {
     $db = getConnection();
@@ -94,7 +94,7 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     $app->log->error('getCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-});
+});*/
 
 $app->post('/categories', function ($request, $response, $args) {
   //$request = Slim::getInstance()->request();
