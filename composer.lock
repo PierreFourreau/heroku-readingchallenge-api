@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e1577db07d4e1802a9a3568c8f2a00d",
-    "content-hash": "eceba50fb0b465d8d3bea9c3f5145229",
+    "hash": "801f03f16907c30965b8ece6b48714f9",
+    "content-hash": "9e3f004e74f7bef34e1086fe6d2c76ea",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -242,16 +242,16 @@
     "packages-dev": [
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v85",
+            "version": "v86",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "ab6bb4443ef51a29101702bb1d1f85a7fe25f214"
+                "reference": "3cdef1d33fdbae1fd1628d8c45848ef2e172153d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/ab6bb4443ef51a29101702bb1d1f85a7fe25f214",
-                "reference": "ab6bb4443ef51a29101702bb1d1f85a7fe25f214",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/3cdef1d33fdbae1fd1628d8c45848ef2e172153d",
+                "reference": "3cdef1d33fdbae1fd1628d8c45848ef2e172153d",
                 "shasum": ""
             },
             "bin": [
@@ -282,7 +282,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2015-12-09 15:27:54"
+            "time": "2015-12-10 23:51:44"
         }
     ],
     "aliases": [],
@@ -290,6 +290,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^5.5.12"
+    },
     "platform-dev": []
 }
