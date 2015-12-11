@@ -63,7 +63,7 @@ function getCategories() {
   }
 }*/
 
-$app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
+/*$app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
   try {
     $db = getConnection();
@@ -121,7 +121,7 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('addCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
 $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.id=:id";
