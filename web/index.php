@@ -23,11 +23,7 @@ function getConnection() {
 
 $app = new \Slim\Slim(array(
 	//'log.writer' => $logWriter,
-	'log.writer' => new \Slim\Logger\DateTimeFileWriter(
-	array(
-		'path' => 'Logs/',
-	)
-)
+	'log.writer' => new \Slim\Logger\DateTimeFileWriter()
 ));
 
 //category
