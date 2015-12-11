@@ -81,7 +81,7 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
   }
 });
 
-$app->get('/categories/{id}', function ($request, $response, $args) {
+/*$app->get('/categories/{id}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
   try {
     $db = getConnection();
@@ -97,9 +97,9 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     $app->log->error('getCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-});
+});*/
 
-$app->post('/categories', function ($request, $response, $args) {
+/*$app->post('/categories', function ($request, $response, $args) {
   //$request = Slim::getInstance()->request();
   $categorie = json_decode($request->getBody());
   $sql = "INSERT INTO categories(libelle_en, libelle_fr, description_en, description_fr, image) VALUES (:libelle_en, :libelle_fr, :description_en, :description_fr, :image)";
@@ -121,9 +121,9 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('addCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
-$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
+/*$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.id=:id";
   try {
     $db = getConnection();
@@ -139,7 +139,7 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
     $app->log->error('getSuggestionById-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
 /*$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
