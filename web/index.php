@@ -96,7 +96,7 @@ function getCategories() {
   }
 });*/
 
-$app->post('/categories', function ($request, $response, $args) {
+/*$app->post('/categories', function ($request, $response, $args) {
   //$request = Slim::getInstance()->request();
   $categorie = json_decode($request->getBody());
   $sql = "INSERT INTO categories(libelle_en, libelle_fr, description_en, description_fr, image) VALUES (:libelle_en, :libelle_fr, :description_en, :description_fr, :image)";
@@ -118,7 +118,7 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('addCategorie-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}
+}*/
 
 $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.id=:id";
