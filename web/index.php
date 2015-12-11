@@ -25,8 +25,26 @@ $app = new \Slim\App;
 
 //category
 $app->get('/categories', 'getCategories');
-$app->get('/categoriesByLevel/:level', 'getCategoriesByLevel');
-//$app->get('/categories/:id',	'getCategorie');
+
+$app->put('/categoriesByLevel/{level}', function ($request, $response, $args) {
+  $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("level", $args['level']);
+    $stmt->execute();
+    $categories = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $db = null;
+    echo json_encode($categories);
+    exit;
+  } catch(Exception $e) {
+    $app = \Slim\Slim::getInstance();
+    $app->log->error('getCategoriesByLevel-'.$e->getMessage());
+    echo '{"error":{"text":'. $e->getMessage() .'}}';
+  }
+});
+
+
 $app->get('/categories/{id}', function ($request, $response, $args) {
   $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
   try {
@@ -86,40 +104,9 @@ function getCategories() {
 	}
 }
 function getCategoriesByLevel($level) {
-	$sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c where c.niveau<=:level";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);
-		$stmt->bindParam("level", $level);
-		$stmt->execute();
-		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo json_encode($categories);
-    exit;
-	} catch(Exception $e) {
-		$app = \Slim\Slim::getInstance();
-		$app->log->error('getCategoriesByLevel-'.$e->getMessage());
-		echo '{"error":{"text":'. $e->getMessage() .'}}';
-	}
+
 }
 
-function getCategorie($id) {
-	$sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
-	try {
-		$db = getConnection();
-		$stmt = $db->prepare($sql);
-		$stmt->bindParam("id", $id);
-		$stmt->execute();
-		$categorie = $stmt->fetchObject();
-		$db = null;
-		echo json_encode($categorie);
-		exit;
-	} catch(Exception $e) {
-		$app = \Slim\Slim::getInstance();
-		$app->log->error('getCategorie-'.$e->getMessage());
-		echo '{"error":{"text":'. $e->getMessage() .'}}';
-	}
-}
 
 function addCategorie() {
 	$request = Slim::getInstance()->request();
