@@ -141,7 +141,7 @@ $app->post('/categories', function ($request, $response, $args) {
   }
 }*/
 
-/*$app->post('/propositions', function ($request, $response, $args) {
+$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
   $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
@@ -177,6 +177,6 @@ $app->post('/categories', function ($request, $response, $args) {
     $app->log->error('addProposition-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
 $app->run();
