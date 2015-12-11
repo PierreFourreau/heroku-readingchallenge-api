@@ -20,7 +20,8 @@ $app->run();
 
 function getCategories() {
 	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
-	try {
+echo $sql;
+  try {
 		$db = getConnection();
 		$stmt = $db->query($sql);
 		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
