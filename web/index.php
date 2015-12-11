@@ -120,24 +120,6 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
   }
 }*/
 
-/*$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
-  $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.categorie_id=:id";
-  	try {
-  		$db = getConnection();
-  		$stmt = $db->prepare($sql);
-  		$stmt->bindParam("id", $args['id']);
-  		$stmt->execute();
-  		$suggestions = $stmt->fetchAll(PDO::FETCH_OBJ);
-  		$db = null;
-  		echo json_encode($suggestions);
-  		exit;
-  	} catch(Exception $e) {
-  		$app = \Slim\Slim::getInstance();
-  		$app->log->error('getSuggestionsByCategoryId-'.$e->getMessage());
-  		echo '{"error":{"text":'. $e->getMessage() .'}}';
-  	}
-}*/
-
 $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.categorie_id=:id";
   	try {
@@ -156,7 +138,7 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   	}
 });
 
-/*$app->post('/propositions', function ($request, $response, $args) {
+$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
   $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
@@ -175,7 +157,7 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
     echo json_encode($id);
     //send email
 
-    $headers = "From: ReadingChallenge\r\n";
+    /*$headers = "From: ReadingChallenge\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     $email = 'readingchallenge.contact@gmail.com';
     $subject = 'Readingchallenge - ajout proposition';
@@ -185,13 +167,13 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
     $message .= 'Libelle en : ' . $params['libelle_en'];
     $message .= '<br/><br/><a href="http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions">Admin</a>';
     $message .= '</body></html>';
-    mail($email, $subject, $message, $headers);
+    mail($email, $subject, $message, $headers);*/
     exit;
   } catch(Exception $e) {
     $app = \Slim\Slim::getInstance();
     $app->log->error('addProposition-'.$e->getMessage());
     echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
-}*/
+}
 
 $app->run();
