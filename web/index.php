@@ -21,7 +21,7 @@ function getConnection() {
 	return $dbh;
 }
 
-$app = new \Slim\App;
+$app = new \Slim\Slim();
 
 //category
 $app->get('/categories', 'getCategories');
