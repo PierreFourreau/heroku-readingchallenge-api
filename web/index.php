@@ -23,8 +23,6 @@ function getConnection() {
 
 $app = new \Slim\App;
 
-$app->get('/', function() use ($app) { ... })->name("root");
-
 //category
 $app->get('/categories', 'getCategories');
 $app->get('/categoriesByLevel/:level', 'getCategoriesByLevel');
@@ -79,7 +77,7 @@ function getCategoriesByLevel($level) {
 		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($categories);
-		$app->response->redirect($app->urlFor('root'));
+		$app->response->redirect('/');
 	} catch(Exception $e) {
 		$app = \Slim\Slim::getInstance();
 		$app->log->error('getCategoriesByLevel-'.$e->getMessage());
