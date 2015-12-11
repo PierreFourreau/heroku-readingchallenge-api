@@ -138,6 +138,24 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
   	}
 }*/
 
+$app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
+  $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.categorie_id=:id";
+  	try {
+  		$db = getConnection();
+  		$stmt = $db->prepare($sql);
+  		$stmt->bindParam("id", $args['id']);
+  		$stmt->execute();
+  		$suggestions = $stmt->fetchAll(PDO::FETCH_OBJ);
+  		$db = null;
+  		echo json_encode($suggestions);
+  		exit;
+  	} catch(Exception $e) {
+  		$app = \Slim\Slim::getInstance();
+  		$app->log->error('getSuggestionsByCategoryId-'.$e->getMessage());
+  		echo '{"error":{"text":'. $e->getMessage() .'}}';
+  	}
+});
+
 /*$app->post('/propositions', function ($request, $response, $args) {
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
