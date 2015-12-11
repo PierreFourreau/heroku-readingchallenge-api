@@ -1,6 +1,6 @@
 {
   "require": {
-    "slim/slim": "^3.0",
+    "slim/slim": "2.6.1",
     "php": "^5.5.12",
     "slim/logger": "0.1.*"
   },

@@ -77,7 +77,6 @@ function getCategoriesByLevel($level) {
 		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($categories);
-		$app->response->redirect('/');
     exit;
 	} catch(Exception $e) {
 		$app = \Slim\Slim::getInstance();
