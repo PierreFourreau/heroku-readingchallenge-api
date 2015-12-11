@@ -9,11 +9,10 @@ require('../vendor/autoload.php');
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 print_r($url);
-const DB_SERVER = $url["host"];
+/*const DB_SERVER = $url["host"];
 const DB_USER = $url["user"];
 const DB_PASSWORD = $url["pass"];
-print_r($url);
-//const DB = substr($url["path"], 1);
+const DB = substr($url["path"], 1);*/
 
 
 
