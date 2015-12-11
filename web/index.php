@@ -6,15 +6,10 @@ require('../vendor/autoload.php');
 //require 'db.php';
 
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$dbhost=$url["host"];
-$dbuser=$url["user"];
-$dbpass=$url["pass"];
-$dbname=substr($url["path"], 1);
-print_r($dbhost);
-print_r($dbuser);
-/*function getConnection() {
+
+function getConnection() {
+  $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 	$dbhost=$url["host"];
 	$dbuser=$url["user"];
 	$dbpass=$url["pass"];
@@ -24,7 +19,7 @@ print_r($dbuser);
 	//$dbh->exec("set names utf8");
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $dbh;
-}*/
+}
 
 $app = new \Slim\App;
 $app->get('/hello/{name}', function (Request $request, Response $response) {
@@ -34,13 +29,14 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response;
 });
 
-//$app->get('/categories', 'getCategories');
+$app->get('/categories', 'getCategories');
 
 $app->run();
 
 
-/*function getCategories() {
-	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
+function getCategories() {
+  print("test");
+	/*$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
 echo $sql;
   try {
 		$db = getConnection();
@@ -56,5 +52,5 @@ echo $sql;
 		exit;
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
-	}
-}*/
+	}*/
+}
