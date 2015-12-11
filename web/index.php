@@ -21,12 +21,30 @@ function getConnection() {
 	return $dbh;
 }
 
-$app = new \Slim\Slim();
+$app = new \Slim\App;
 
 //category
 $app->get('/categories', 'getCategories');
 $app->get('/categoriesByLevel/:level', 'getCategoriesByLevel');
-$app->get('/categories/:id',	'getCategorie');
+//$app->get('/categories/:id',	'getCategorie');
+$app->get('/categories/{id}', function ($request, $response, $args) {
+  $sql = "SELECT c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c WHERE c.id=:id";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("id", $args['id']);
+    $stmt->execute();
+    $categorie = $stmt->fetchObject();
+    $db = null;
+    echo json_encode($categorie);
+    exit;
+  } catch(Exception $e) {
+    $app = \Slim\Slim::getInstance();
+    $app->log->error('getCategorie-'.$e->getMessage());
+    echo '{"error":{"text":'. $e->getMessage() .'}}';
+  }
+});
+
 $app->get('/categories/search/:query', 'findBylabel');
 $app->post('/categories', 'addCategorie');
 $app->put('/categories/:id', 'updateCategorie');
