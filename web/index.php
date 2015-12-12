@@ -129,14 +129,32 @@ file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMess
 });
 
 $app->post('/propositions', function ($request, $response, $args) {
-  $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
-  $email    = new SendGrid\Email();
-  $email->addTo("readingchallenge.contact@gmail.com")
-        ->setFrom("you@youremail.com")
-        ->setSubject("Sending with SendGrid is Fun")
-        ->setHtml("and easy to do anywhere, even with PHP");
-  $sendgrid->send($email);
-  exit;
+  //$request = \Slim\Slim::getInstance()->request();
+  $proposition = json_decode($request->getBody());
+  $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
+  parse_str($request->getBody(), $params);
+  $dateNow = date("Y-m-d H:i:s");
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("libelle_en", $params['libelle_en']);
+    $stmt->bindParam("libelle_fr", $params['libelle_fr']);
+    $stmt->bindParam("id", $params['categorie_id']);
+    $stmt->bindParam("dateNow", $dateNow);
+    $stmt->execute();
+    $id = $db->lastInsertId();
+    $db = null;
+    echo json_encode($id);
+
+
+    $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
+    $email    = new SendGrid\Email();
+    $email->addTo("readingchallenge.contact@gmail.com")
+          ->setFrom("you@youremail.com")
+          ->setSubject("Sending with SendGrid is Fun")
+          ->setHtml("and easy to do anywhere, even with PHP");
+    $sendgrid->send($email);
+    exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
   }
