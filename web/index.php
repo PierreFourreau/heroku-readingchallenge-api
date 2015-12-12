@@ -160,7 +160,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     mail($email, $subject, $message, $headers);
 
 
-    $mail = new PHPMailer(); // create a new object
+  /*  $mail = new PHPMailer(); // create a new object
 $mail->IsSMTP(); // enable SMTP
 $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 $mail->SMTPAuth = true; // authentication enabled
@@ -179,6 +179,23 @@ $message .= 'Libelle en : ' . $params['libelle_en'];
 $message .= "<br/><br/><a href='http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions'>Admin</a>";
 $message .= '</body></html>';
 $mail->Body = $message;
+$mail->AddAddress("readingchallenge.contact@gmail.com");
+
+$mail->Send();*/
+
+$mail = new PHPMailer(); // create a new object
+$mail->IsSMTP(); // enable SMTP
+$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+$mail->SMTPAuth = true; // authentication enabled
+$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+$mail->Host = "smtp.gmail.com";
+$mail->Port = 465; // or 587
+$mail->IsHTML(true);
+$mail->Username = "readingchallenge.contact@gmail.com";
+$mail->Password = "76hdfrb8";
+$mail->SetFrom("example@gmail.com");
+$mail->Subject = "Test";
+$mail->Body = "hello";
 $mail->AddAddress("readingchallenge.contact@gmail.com");
 
 $mail->Send();
