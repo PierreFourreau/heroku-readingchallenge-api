@@ -160,12 +160,13 @@ $app->post('/propositions', function ($request, $response, $args) {
         $message .= "<br/><br/><a href='http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions'>Admin</a>";
         $message .= '</body></html>';
 
+$content = 'Libelle fr : ' . $params['libelle_fr'].'<br/>';
         # Make the call to the client.
         $result = $mgClient->sendMessage("$domain",
                           array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
                                 'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
                                 'subject' => 'Readingchallenge - ajout proposition',
-                                'text'    => 'pous'));
+                                'text'    => $content));
         exit;
 
     exit;
