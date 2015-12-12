@@ -129,20 +129,23 @@ file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMess
 });
 
 $app->post('/propositions', function ($request, $response, $args) {
+
+
+    $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
+    $email    = new SendGrid\Email();
+    $email->addTo("readingchallenge.contact@gmail.com")
+          ->setFrom("you@youremail.com")
+          ->setSubject("Sending with SendGrid is Fun")
+          ->setHtml("and easy to do anywhere, even with PHP");
+    $sendgrid->send($email);
+    
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
   $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
   parse_str($request->getBody(), $params);
   $dateNow = date("Y-m-d H:i:s");
 
-  $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
-  $email    = new SendGrid\Email();
-  $email->addTo("readingchallenge.contact@gmail.com")
-        ->setFrom("you@youremail.com")
-        ->setSubject("Sending with SendGrid is Fun")
-        ->setHtml("and easy to do anywhere, even with PHP");
-  $sendgrid->send($email);
-  
+
   try {
     $db = getConnection();
     $stmt = $db->prepare($sql);
