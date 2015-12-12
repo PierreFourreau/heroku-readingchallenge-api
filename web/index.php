@@ -200,7 +200,7 @@ $mail->AddAddress("readingchallenge.contact@gmail.com");
 
 $mail->Send();*/
 
-$sendgrid = new SendGrid("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");
+$sendgrid = new SendGrid("4C-yyf5USr2glt2hBnab1Q");
 $email    = new SendGrid\Email();
 
 $email->addTo("readingchallenge.contact@gmail.com")
