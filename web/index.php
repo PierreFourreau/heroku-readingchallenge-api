@@ -165,7 +165,7 @@ $app->post('/propositions', function ($request, $response, $args) {
                           array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
                                 'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
                                 'subject' => 'Readingchallenge - ajout proposition',
-                                'text'    => $message));
+                                'text'    => 'pous'));
         exit;
 
     exit;
