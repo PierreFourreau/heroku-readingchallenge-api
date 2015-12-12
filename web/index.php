@@ -142,11 +142,6 @@ $app->post('/propositions', function ($request, $response, $args) {
     $stmt->bindParam("id", $params['categorie_id']);
     $stmt->bindParam("dateNow", $dateNow);
     $stmt->execute();
-    $id = $db->lastInsertId();
-    $db = null;
-    echo json_encode($id);
-
-
     $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
     $email    = new SendGrid\Email();
     $email->addTo("readingchallenge.contact@gmail.com")
@@ -154,6 +149,10 @@ $app->post('/propositions', function ($request, $response, $args) {
           ->setSubject("Sending with SendGrid is Fun")
           ->setHtml("and easy to do anywhere, even with PHP");
     $sendgrid->send($email);
+    
+    $id = $db->lastInsertId();
+    $db = null;
+    echo json_encode($id);
     exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
