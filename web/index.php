@@ -24,7 +24,7 @@ $app->get('/categories', 'getCategories');
 function getCategories() {
 	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
 	try {
-    throw new Exception("azerty", 1);
+    throw new Exception("azerty");
 
 		$db = getConnection();
 		$stmt = $db->query($sql);
