@@ -5,6 +5,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require('../vendor/autoload.php');
 //require 'db.php';
 
+use Postmark\PostmarkClient;
+
 function getConnection() {
   $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
   $dbhost=$url["host"];
@@ -146,14 +148,14 @@ $app->post('/propositions', function ($request, $response, $args) {
     $db = null;
     echo json_encode($id);
 
+    $client = new PostmarkClient("6b2ef371-7c03-44dd-9969-94d6c664e92b");
 
-    $sendgrid = new SendGrid("4C-yyf5USr2glt2hBnab1Q");
-    $email    = new SendGrid\Email();
-    $email->addTo("readingchallenge.contact@gmail.com")
-          ->setFrom("you@youremail.com")
-          ->setSubject("Sending with SendGrid is Fun")
-          ->setHtml("and easy to do anywhere, even with PHP");
-    $sendgrid->send($email);
+    $sendResult = $client->sendEmail(
+      "readingchallenge.contact@gmail.com",
+      "fourreau.pierre@gmail.com",
+      "Hello from Postmark!",
+      "This is just a friendly 'hello' from your friends at Postmark."
+    );
     exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
