@@ -158,7 +158,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
     'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
     'subject' => 'Readingchallenge - nouvelle proposition',
-    'text'    => $content));
+    'text'    => $message));
     exit;
   } catch(Exception $e) {
     file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
