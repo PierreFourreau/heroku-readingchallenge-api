@@ -147,7 +147,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     echo json_encode($id);
 
 
-   $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
+   $sendgrid = new SendGrid("4C-yyf5USr2glt2hBnab1Q");
     $email    = new SendGrid\Email();
     $email->addTo("readingchallenge.contact@gmail.com")
           ->setFrom("you@youremail.com")
