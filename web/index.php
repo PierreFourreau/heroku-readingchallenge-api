@@ -33,7 +33,8 @@ function getCategories() {
 		echo json_encode($categories);
 		exit;
 	} catch(Exception $e) {
-    error_log("error getCategories", $e->getMessage());
+    file_put_contents("php://stderr", "error getCategories \n");
+    //error_log("error getCategories", $e->getMessage());
 		/*$app = \Slim\Slim::getInstance();
 		$app->log->error('getCategories-'.$e->getMessage());
 		echo json_encode($categories);*/
