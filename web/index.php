@@ -183,7 +183,7 @@ $mail->AddAddress("readingchallenge.contact@gmail.com");
 
 $mail->Send();*/
 
-$mail = new PHPMailer(); // create a new object
+/*$mail = new PHPMailer(); // create a new object
 //$mail->IsSMTP(); // enable SMTP
 $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 $mail->SMTPAuth = true; // authentication enabled
@@ -198,8 +198,17 @@ $mail->Subject = "Test";
 $mail->Body = "hello";
 $mail->AddAddress("readingchallenge.contact@gmail.com");
 
-$mail->Send();
+$mail->Send();*/
 
+$sendgrid = new SendGrid("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");
+$email    = new SendGrid\Email();
+
+$email->addTo("readingchallenge.contact@gmail.com")
+      ->setFrom("you@youremail.com")
+      ->setSubject("Sending with SendGrid is Fun")
+      ->setHtml("and easy to do anywhere, even with PHP");
+
+$sendgrid->send($email);
 
     exit;
   } catch(Exception $e) {
