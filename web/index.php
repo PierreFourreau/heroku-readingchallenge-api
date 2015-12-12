@@ -24,6 +24,8 @@ $app->get('/categories', 'getCategories');
 function getCategories() {
 	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
 	try {
+    throw new Exception("azerty", 1);
+
 		$db = getConnection();
 		$stmt = $db->query($sql);
 		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -31,12 +33,11 @@ function getCategories() {
 		echo json_encode($categories);
 		exit;
 	} catch(Exception $e) {
-		$app = \Slim\Slim::getInstance();
+    error_log("error getCategories", $e->getMessage());
+		/*$app = \Slim\Slim::getInstance();
 		$app->log->error('getCategories-'.$e->getMessage());
-		echo json_encode($categories);
+		echo json_encode($categories);*/
 		exit;
-	} catch(PDOException $e) {
-		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
 
