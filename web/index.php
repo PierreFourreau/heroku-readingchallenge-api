@@ -24,22 +24,6 @@ $app = new \Slim\App;
 
 $app->get('/categories', 'getCategories');
 function getCategories() {
-	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
-	try {
-		$db = getConnection();
-		$stmt = $db->query($sql);
-		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
-		$db = null;
-		echo json_encode($categories);
-		exit;
-	} catch(Exception $e) {
-    file_put_contents("php://stderr", "error getCategories : " . $e->getMessage() . "\n");
-		exit;
-	}
-}
-
-//category
-/*$app->get('/categories', function ($request, $response, $args) {
   $sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
   try {
     $db = getConnection();
@@ -49,13 +33,29 @@ function getCategories() {
     echo json_encode($categories);
     exit;
   } catch(Exception $e) {
-    $app = \Slim\Slim::getInstance();
-    $app->log->error('getCategories-'.$e->getMessage());
-    echo json_encode($categories);
+    file_put_contents("php://stderr", "error getCategories : " . $e->getMessage() . "\n");
     exit;
-  } catch(PDOException $e) {
-    echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
+}
+
+//category
+/*$app->get('/categories', function ($request, $response, $args) {
+$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
+try {
+$db = getConnection();
+$stmt = $db->query($sql);
+$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
+$db = null;
+echo json_encode($categories);
+exit;
+} catch(Exception $e) {
+$app = \Slim\Slim::getInstance();
+$app->log->error('getCategories-'.$e->getMessage());
+echo json_encode($categories);
+exit;
+} catch(PDOException $e) {
+echo '{"error":{"text":'. $e->getMessage() .'}}';
+}
 }*/
 
 $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
@@ -85,48 +85,48 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     $db = null;
     echo json_encode($categorie);
   } catch(Exception $e) {
-file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
+    file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
   }
 });
 
 /*$app->post('/categories', function ($request, $response, $args) {
-  //$request = Slim::getInstance()->request();
-  $categorie = json_decode($request->getBody());
-  $sql = "INSERT INTO categories(libelle_en, libelle_fr, description_en, description_fr, image) VALUES (:libelle_en, :libelle_fr, :description_en, :description_fr, :image)";
-  try {
-    $db = getConnection();
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam("libelle_en", $categorie->libelle_en);
-    $stmt->bindParam("libelle_fr", $categorie->libelle_fr);
-    $stmt->bindParam("description_en", $categorie->description_en);
-    $stmt->bindParam("description_fr", $categorie->description_fr);
-    $stmt->bindParam("image", $categorie->image);
-    $stmt->execute();
-    $categorie->id = $db->lastInsertId();
-    $db = null;
-    echo json_encode($categorie);
-    exit;
-  } catch(Exception $e) {
-    $app = \Slim\Slim::getInstance();
-    $app->log->error('addCategorie-'.$e->getMessage());
-    echo '{"error":{"text":'. $e->getMessage() .'}}';
-  }
+//$request = Slim::getInstance()->request();
+$categorie = json_decode($request->getBody());
+$sql = "INSERT INTO categories(libelle_en, libelle_fr, description_en, description_fr, image) VALUES (:libelle_en, :libelle_fr, :description_en, :description_fr, :image)";
+try {
+$db = getConnection();
+$stmt = $db->prepare($sql);
+$stmt->bindParam("libelle_en", $categorie->libelle_en);
+$stmt->bindParam("libelle_fr", $categorie->libelle_fr);
+$stmt->bindParam("description_en", $categorie->description_en);
+$stmt->bindParam("description_fr", $categorie->description_fr);
+$stmt->bindParam("image", $categorie->image);
+$stmt->execute();
+$categorie->id = $db->lastInsertId();
+$db = null;
+echo json_encode($categorie);
+exit;
+} catch(Exception $e) {
+$app = \Slim\Slim::getInstance();
+$app->log->error('addCategorie-'.$e->getMessage());
+echo '{"error":{"text":'. $e->getMessage() .'}}';
+}
 }*/
 
 $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   $sql = "SELECT s.id, s.libelle_fr, s.libelle_en, s.categorie_id FROM suggestions s WHERE s.categorie_id=:id";
-  	try {
-  		$db = getConnection();
-  		$stmt = $db->prepare($sql);
-  		$stmt->bindParam("id", $args['id']);
-  		$stmt->execute();
-  		$suggestions = $stmt->fetchAll(PDO::FETCH_OBJ);
-  		$db = null;
-  		echo json_encode($suggestions);
-  		exit;
-  	} catch(Exception $e) {
-file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMessage() . "\n");
-  	}
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam("id", $args['id']);
+    $stmt->execute();
+    $suggestions = $stmt->fetchAll(PDO::FETCH_OBJ);
+    $db = null;
+    echo json_encode($suggestions);
+    exit;
+  } catch(Exception $e) {
+    file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMessage() . "\n");
+  }
 });
 
 $app->post('/propositions', function ($request, $response, $args) {
@@ -148,30 +148,20 @@ $app->post('/propositions', function ($request, $response, $args) {
     $id = $db->lastInsertId();
     $db = null;
     echo json_encode($id);
-
-
-        $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
-        $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
-
-        $message = '<html><body>';
-        $message .= 'Nouvelle proposition ajoutée<br/><br/>';
-        $message .= 'Libelle fr : ' . $params['libelle_fr'].'<br/>';
-        $message .= 'Libelle en : ' . $params['libelle_en'];
-        $message .= "<br/><br/><a href='http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions'>Admin</a>";
-        $message .= '</body></html>';
-
-$content = 'Libelle fr : ' . $params['libelle_fr'].'\n azer';
-        # Make the call to the client.
-        $result = $mgClient->sendMessage("$domain",
-                          array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
-                                'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
-                                'subject' => 'Readingchallenge - ajout proposition',
-                                'text'    => $content));
-        exit;
-
+    //send mail
+    $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
+    $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
+    $message .= 'fr : ' . $params['libelle_fr'].'   -    ';
+    $message .= 'en : ' . $params['libelle_en'];
+    # Make the call to the client.
+    $result = $mgClient->sendMessage("$domain",
+    array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
+    'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
+    'subject' => 'Readingchallenge - nouvelle proposition',
+    'text'    => $content));
     exit;
   } catch(Exception $e) {
-file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
+    file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
   }
 });
 
