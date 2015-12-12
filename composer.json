@@ -2,7 +2,7 @@
   "require": {
     "slim/slim": "~2.0",
     "php": "^5.5.12",
-    "slim/logger": "0.1.*",
+    "slim/logger": "0.1.*"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
