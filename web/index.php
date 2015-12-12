@@ -84,14 +84,14 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     echo json_encode($categorie);
 
 
-        $sendgrid = new SendGrid("fourreau.pierre@gmail.com", "76hdfrb8");
+        $sendgrid = new SendGrid(getenv("SENDGRID_USERNAME"), getenv("SENDGRID_PASSWORD"));
         $email    = new SendGrid\Email();
         $email->addTo("readingchallenge.contact@gmail.com")
               ->setFrom("you@youremail.com")
               ->setSubject("Sending with SendGrid is Fun")
               ->setHtml("and easy to do anywhere, even with PHP");
         $sendgrid->send($email);
-        
+
     exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
