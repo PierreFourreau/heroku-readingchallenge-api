@@ -24,8 +24,6 @@ $app->get('/categories', 'getCategories');
 function getCategories() {
 	$sql = "select c.id, c.libelle_fr, c.libelle_en, c.description_fr, c.description_en, c.image FROM categories c";
 	try {
-    throw new Exception("azerty");
-
 		$db = getConnection();
 		$stmt = $db->query($sql);
 		$categories = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -33,11 +31,7 @@ function getCategories() {
 		echo json_encode($categories);
 		exit;
 	} catch(Exception $e) {
-    file_put_contents("php://stderr", "error getCategories" . $e->getMessage() . "\n");
-    //error_log("error getCategories", $e->getMessage());
-		/*$app = \Slim\Slim::getInstance();
-		$app->log->error('getCategories-'.$e->getMessage());
-		echo json_encode($categories);*/
+    file_put_contents("php://stderr", "error getCategories : " . $e->getMessage() . "\n");
 		exit;
 	}
 }
@@ -74,9 +68,7 @@ $app->get('/categoriesByLevel/{level}', function ($request, $response, $args) {
     echo json_encode($categories);
     exit;
   } catch(Exception $e) {
-    $app = \Slim\Slim::getInstance();
-    $app->log->error('getCategoriesByLevel-'.$e->getMessage());
-    echo '{"error":{"text":'. $e->getMessage() .'}}';
+    file_put_contents("php://stderr", "error categoriesByLevel : " . $e->getMessage() . "\n");
   }
 });
 
@@ -92,9 +84,7 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     echo json_encode($categorie);
     exit;
   } catch(Exception $e) {
-    $app = \Slim\Slim::getInstance();
-    $app->log->error('getCategorie-'.$e->getMessage());
-    echo '{"error":{"text":'. $e->getMessage() .'}}';
+file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
   }
 });
 
@@ -134,9 +124,7 @@ $app->get('/suggestionsByCategory/{id}', function ($request, $response, $args) {
   		echo json_encode($suggestions);
   		exit;
   	} catch(Exception $e) {
-  		$app = \Slim\Slim::getInstance();
-  		$app->log->error('getSuggestionsByCategoryId-'.$e->getMessage());
-  		echo '{"error":{"text":'. $e->getMessage() .'}}';
+file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMessage() . "\n");
   	}
 });
 
@@ -172,10 +160,7 @@ $app->post('/propositions', function ($request, $response, $args) {
     mail($email, $subject, $message, $headers);*/
     exit;
   } catch(Exception $e) {
-    error_log("error addProposition", $e->getMessage());
-    //$app = \Slim\Slim::getInstance();
-    //$app->log->error('addProposition-'.$e->getMessage());
-    //echo '{"error":{"text":'. $e->getMessage() .'}}';
+file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
   }
 });
 
