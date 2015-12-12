@@ -170,9 +170,10 @@ $app->post('/propositions', function ($request, $response, $args) {
     mail($email, $subject, $message, $headers);*/
     exit;
   } catch(Exception $e) {
-    $app = \Slim\Slim::getInstance();
-    $app->log->error('addProposition-'.$e->getMessage());
-    echo '{"error":{"text":'. $e->getMessage() .'}}';
+    error_log("error addProposition", $e->getMessage());
+    //$app = \Slim\Slim::getInstance();
+    //$app->log->error('addProposition-'.$e->getMessage());
+    //echo '{"error":{"text":'. $e->getMessage() .'}}';
   }
 });
 
