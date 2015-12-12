@@ -84,25 +84,6 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     $categorie = $stmt->fetchObject();
     $db = null;
     echo json_encode($categorie);
-
-
-    $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
-    $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
-
-    $message = '<html><body>';
-    $message .= 'Nouvelle proposition ajoutée<br/><br/>';
-    $message .= 'Libelle fr : ' . $params['libelle_fr'].'<br/>';
-    $message .= 'Libelle en : ' . $params['libelle_en'];
-    $message .= "<br/><br/><a href='http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions'>Admin</a>";
-    $message .= '</body></html>';
-
-    # Make the call to the client.
-    $result = $mgClient->sendMessage("$domain",
-                      array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
-                            'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
-                            'subject' => 'Readingchallenge - ajout proposition',
-                            'text'    => 'azerty'));
-    exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
   }
@@ -149,21 +130,6 @@ file_put_contents("php://stderr", "error suggestionsByCategory : " . $e->getMess
 });
 
 $app->post('/propositions', function ($request, $response, $args) {
-  $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
-  $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
-
-  # Make the call to the client.
-  $result = $mgClient->sendMessage("$domain",
-                    array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
-                          'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
-                          'subject' => 'Hello Pierre',
-                          'text'    => 'Congratulations Pierre, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.'));
-
-
-
-
-
-
   //$request = \Slim\Slim::getInstance()->request();
   $proposition = json_decode($request->getBody());
   $sql = "INSERT INTO propositions(libelle_en, libelle_fr, categorie_id, created, modified) VALUES (:libelle_en, :libelle_fr, :id, :dateNow, :dateNow)";
@@ -183,6 +149,24 @@ $app->post('/propositions', function ($request, $response, $args) {
     $db = null;
     echo json_encode($id);
 
+
+        $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
+        $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
+
+        $message = '<html><body>';
+        $message .= 'Nouvelle proposition ajoutée<br/><br/>';
+        $message .= 'Libelle fr : ' . $params['libelle_fr'].'<br/>';
+        $message .= 'Libelle en : ' . $params['libelle_en'];
+        $message .= "<br/><br/><a href='http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions'>Admin</a>";
+        $message .= '</body></html>';
+
+        # Make the call to the client.
+        $result = $mgClient->sendMessage("$domain",
+                          array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
+                                'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
+                                'subject' => 'Readingchallenge - ajout proposition',
+                                'text'    => $message));
+        exit;
 
     exit;
   } catch(Exception $e) {
