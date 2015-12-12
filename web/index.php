@@ -101,7 +101,7 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
                       array('from'    => 'ReadingChallenge <readingchallenge.contact@gmail.com>',
                             'to'      => 'Pierre <readingchallenge.contact@gmail.com>',
                             'subject' => 'Readingchallenge - ajout proposition',
-                            'text'    => $message));
+                            'text'    => 'azerty'));
     exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error categories : " . $e->getMessage() . "\n");
