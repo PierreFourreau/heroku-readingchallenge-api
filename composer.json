@@ -2,7 +2,8 @@
   "require": {
     "slim/slim": "^3.0",
     "php": "^5.5.12",
-    "slim/logger": "0.1.*"
+    "slim/logger": "0.1.*",
+     "sendgrid/sendgrid": "~4.0"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
