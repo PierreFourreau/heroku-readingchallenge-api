@@ -147,6 +147,17 @@ $app->post('/propositions', function ($request, $response, $args) {
     echo json_encode($id);
     //send email
 
+    /*$headers = "From: ReadingChallenge\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    $email = 'readingchallenge.contact@gmail.com';
+    $subject = 'Readingchallenge - ajout proposition';
+    $message = '<html><body>';
+    $message .= 'Nouvelle proposition ajoutée<br/><br/>';
+    $message .= 'Libelle fr : ' . $params['libelle_fr'].'<br/>';
+    $message .= 'Libelle en : ' . $params['libelle_en'];
+    $message .= '<br/><br/><a href="http://pierrefourreau.fr/readingchallenge/readingchallenge-admin/propositions">Admin</a>';
+    $message .= '</body></html>';
+    mail($email, $subject, $message, $headers);*/
     exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
