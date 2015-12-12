@@ -136,6 +136,7 @@ $app->post('/propositions', function ($request, $response, $args) {
         ->setSubject("Sending with SendGrid is Fun")
         ->setHtml("and easy to do anywhere, even with PHP");
   $sendgrid->send($email);
+  exit;
   } catch(Exception $e) {
 file_put_contents("php://stderr", "error add propositions : " . $e->getMessage() . "\n");
   }
