@@ -5,6 +5,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require('../vendor/autoload.php');
 //require 'db.php';
 
+use Mailgun\Mailgun;
+
 function getConnection() {
   $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
   $dbhost=$url["host"];
@@ -84,13 +86,25 @@ $app->get('/categories/{id}', function ($request, $response, $args) {
     echo json_encode($categorie);
 
 
-        $sendgrid = new SendGrid(getenv("SENDGRID_USERNAME"), getenv("SENDGRID_PASSWORD"));
-        $email    = new SendGrid\Email();
-        $email->addTo("readingchallenge.contact@gmail.com")
-              ->setFrom("you@youremail.com")
-              ->setSubject("Sending with SendGrid is Fun")
-              ->setHtml("and easy to do anywhere, even with PHP");
-        $sendgrid->send($email);
+    $mgClient = new Mailgun('key-2c6b1db7c0f95a7be2ea5386e7838281');
+    $domain = "sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org";
+
+    # Make the call to the client.
+    $result = $mgClient->sendMessage("$domain",
+                      array('from'    => 'Mailgun Sandbox <postmaster@sandbox2c6c61e0b2ae480e8a93264230550a57.mailgun.org>',
+                            'to'      => 'Pierre <fourreau.pierre@gmail.com>',
+                            'subject' => 'Hello Pierre',
+                            'text'    => 'Congratulations Pierre, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.'));
+
+
+
+        // $sendgrid = new SendGrid(getenv("SENDGRID_USERNAME"), getenv("SENDGRID_PASSWORD"));
+        // $email    = new SendGrid\Email();
+        // $email->addTo("readingchallenge.contact@gmail.com")
+        //       ->setFrom("you@youremail.com")
+        //       ->setSubject("Sending with SendGrid is Fun")
+        //       ->setHtml("and easy to do anywhere, even with PHP");
+        // $sendgrid->send($email);
 
     exit;
   } catch(Exception $e) {
